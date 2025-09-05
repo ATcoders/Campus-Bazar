@@ -4,6 +4,7 @@
 The platform makes it easy to exchange books, notes, gadgets, and other student essentials in a secure and student-only environment.  
 
 ---
+## Note : Some files orignal code can't be shared due to safety of users , instead a sample code has be shared to show how the page looks and what are it's features.
 
 ## 🚀 Features
 - Product listing with images, description, and price
