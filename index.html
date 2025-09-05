@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+    <title>Campus Bazar - Modern Student Marketplace</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- <div class="loading-overlay" id="loadingOverlay">
+        <div class="loader"></div>
+    </div> -->
+
+    <div class="bg-animation"></div>
+
+    <nav class="nav" id="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <img src="logo.png" alt="" srcset="">
+                   
+                </div>
+                <h1 >Campus Bazar</h1>
+            </div>
+
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home" class="active"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="#browse"><i class="fas fa-search"></i> Browse</a></li>
+                <li><a href="listing.html"><i class="fas fa-plus-circle"></i> Sell</a></li>
+                <li><a href="#about"><i class="fas fa-info-circle"></i> About</a></li>
+                <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
+            </ul>
+            
+            <div class="auth-buttons">
+                <button class="cart-button" id="cartButton" aria-label="Shopping cart" onclick="location.href='cart.html'">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count" id="cartCount">0</span>
+                  </button>
+                  
+                  
+
+
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                    <i class="fas fa-sun" id="themeIcon"></i>
+                </button>
+
+
+                <a href="login.html" id="loginBtn" class="btn btn-secondary">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </a>
+                <a href="signup.html" id="signupBtn" class="btn btn-primary">
+                    <i class="fas fa-user-plus"></i> Sign Up
+                </a>
+            
+                <!-- User Menu -->
+                <div id="userMenu" style="display:none; position:relative;">
+                    <div id="userInitials" class="user-badge">AB</div>
+                    <div id="userDropdown" class="dropdown-menu">
+                        <a href="#">Account Details</a>
+                        <a href="listing.html" class="listings-link">My Listings</a>
+                        <a href="#" id="logoutBtn">Logout</a>
+                    </div>
+                </div>
+            </div>            
+
+            <button class="mobile-toggle" id="mobileToggle" style="display: none;">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <!-- <div class="hero-badge">
+                <i class="fas fa-bolt"></i>
+                <span>Now Live • Join 10K+ Students</span>
+            </div> -->
+            
+            <h1>Modern Student Marketplace</h1>
+            <p>Connect, trade, and discover amazing deals in the most advanced student marketplace. Built for the next generation of learners.</p>
+
+            <div class="search-container">
+                <div class="search-bar">
+                    <input type="text" class="search-input" placeholder="Search for anything...">
+                    <button class="search-btn">
+                        <i class="fas fa-search"></i>
+                        <span>Search</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="categories">
+                <a href="#" class="category-chip">
+                    <i class="fas fa-book"></i> Textbooks
+                </a>
+                <a href="#" class="category-chip">
+                    <i class="fas fa-sticky-note"></i> Notes
+                </a>
+                <a href="#" class="category-chip">
+                    <i class="fas fa-flask"></i> Lab Equipment
+                </a>
+                <a href="#" class="category-chip">
+                    <i class="fas fa-laptop"></i> Electronics
+                </a>
+                <a href="#" class="category-chip">
+                    <i class="fas fa-pen"></i> Stationery
+                </a>
+                <a href="#" class="category-chip">
+                    <i class="fas fa-tshirt"></i> Fashion
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="items" id="browse">
+        <div class="items-header">
+            <!-- <div class="badge">
+                <i class="fas fa-fire"></i>
+                <span>Trending Now</span>
+            </div> -->
+            <h2>Popular Items</h2>
+            <p>Discover the most sought-after items in our student community</p>
+        </div>
+
+        <div class="cards">
+            <div class="card" data-id="p101">
+                <div class="product-image">
+                    <i class="fas fa-book-open"></i>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Advanced Calculus Textbook</h3>
+                    <div class="product-price">₹2,999</div>
+                    <div class="product-tags">
+                        <span class="product-condition">Excellent</span>
+                        <span class="product-category">Mathematics</span>
+                    </div>
+                </div>
+                <div class="addtocartbtn">
+                    <button><i class="fas fa-cart-plus"></i> Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="card" data-id="p102">
+                <div class="product-image" style="background: linear-gradient(135deg, #06b6d4 0%, #10b981 100%);">
+                    <i class="fas fa-laptop-code"></i>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">MacBook Pro M2 (2023)</h3>
+                    <div class="product-price">₹95,000</div>
+                    <div class="product-tags">
+                        <span class="product-condition">Excellent</span>
+                        <span class="product-category">Electronics</span>
+                    </div>
+                </div>
+                <div class="addtocartbtn">
+                    <button><i class="fas fa-cart-plus"></i> Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="card" data-id="p103">
+                <div class="product-image" style="background: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%);">
+                    <i class="fas fa-palette"></i>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Professional Art Supplies Kit</h3>
+                    <div class="product-price">₹3,500</div>
+                    <div class="product-tags">
+                        <span class="product-condition">Good</span>
+                        <span class="product-category">Art & Design</span>
+                    </div>
+                </div>
+                <div class="addtocartbtn">
+                    <button><i class="fas fa-cart-plus"></i> Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="card" data-id="p104">
+                <div class="product-image" style="background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);">
+                    <i class="fas fa-microscope"></i>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Digital Microscope Set</h3>
+                    <div class="product-price">₹12,500</div>
+                    <div class="product-tags">
+                        <span class="product-condition">Good</span>
+                        <span class="product-category">Lab Equipment</span>
+                    </div>
+                </div>
+                <div class="addtocartbtn">
+                    <button><i class="fas fa-cart-plus"></i> Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="card" data-id="p105">
+                <div class="product-image" style="background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%);">
+                    <i class="fas fa-headphones"></i>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Sony WH-1000XM5 Headphones</h3>
+                    <div class="product-price">₹18,999</div>
+                    <div class="product-tags">
+                        <span class="product-condition"></span>
+                        <span class="product-category">Audio</span>
+                    </div>
+                </div>
+                <div class="addtocartbtn">
+                    <button><i class="fas fa-cart-plus"></i> Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="card" data-id="p106">
+                <div class="product-image" style="background: linear-gradient(135deg, #10b981 0%, #06b6d4 100%);">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Complete Study Notes Bundle</h3>
+                    <div class="product-price">₹1,299</div>
+                    <div class="product-tags">
+                        <span class="product-condition">Digital</span>
+                        <span class="product-category">Study Material</span>
+                    </div>
+                </div>
+                <div class="addtocartbtn">
+                    <button><i class="fas fa-cart-plus"></i> Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="card" data-id="p107">
+                <div class="product-image" style="background: linear-gradient(135deg, #f59e0b 0%, #f97316 100%);">
+                    <i class="fas fa-calculator"></i>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">TI-84 Plus CE Calculator</h3>
+                    <div class="product-price">₹8,999</div>
+                    <div class="product-tags">
+                        <span class="product-condition">Excellent</span>
+                        <span class="product-category">Electronics</span>
+                    </div>
+                </div>
+                <div class="addtocartbtn">
+                    <button><i class="fas fa-cart-plus"></i> Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="card" data-id="p108">
+                <div class="product-image" style="background: linear-gradient(135deg, #6366f1 0%, #ec4899 100%);">
+                    <i class="fas fa-tshirt"></i>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">University Hoodie Collection</h3>
+                    <div class="product-price">₹2,499</div>
+                    <div class="product-tags">
+                        <span class="product-condition">New</span>
+                        <span class="product-category">Apparel</span>
+                    </div>
+                </div>
+                <div class="addtocartbtn">
+                    <button><i class="fas fa-cart-plus"></i> Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats">
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="fas fa-users"></i>
+            </div>
+            <div class="stat-number">10K+</div>
+            <div class="stat-label">Active Students</div>
+        </div>
+        
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="fas fa-shopping-bag"></i>
+            </div>
+            <div class="stat-number">50K+</div>
+            <div class="stat-label">Items Traded</div>
+        </div>
+        
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="fas fa-rupee-sign"></i>
+            </div>
+            <div class="stat-number">₹2.5Cr+</div>
+            <div class="stat-label">Money Saved</div>
+        </div>
+        
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="fas fa-star"></i>
+            </div>
+            <div class="stat-number">4.9★</div>
+            <div class="stat-label">User Rating</div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <h3>Campus Bazar</h3>
+            <h4>Full Stop for all your needs.</h4>
+            
+            <div class="footer-links">
+                <a href="#about"><i class="fas fa-info-circle"></i> About Us</a>
+                <a href="#contact"><i class="fas fa-envelope"></i> Contact</a>
+                <a href="#privacy"><i class="fas fa-shield-alt"></i> Privacy Policy</a>
+                <a href="#terms"><i class="fas fa-file-contract"></i> Terms of Service</a>
+                <a href="#help"><i class="fas fa-question-circle"></i> Help Center</a>
+                <a href="#faq"><i class="fas fa-question-circle"></i> FAQ</a>
+
+            </div>
+            
+            <p>&copy; 2025 Campus Bazar. All rights reserved.</p>
+            <p>Made with ❤️ for students, by students</p>
+            <br>
+            <p class="author">~ Atharva Chauhan</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <!-- <script>
+        window.onload = function() {
+            if (localStorage.getItem("isLoggedIn") === "true") {
+                document.body.innerHTML += `<p>Welcome, ${localStorage.getItem("userName")}!</p>`;
+            } else {
+                window.location.href = "signup.html"; // if not logged in, go back
+            }
+        };
+        </script> -->
+        
+</body>
+</html>
