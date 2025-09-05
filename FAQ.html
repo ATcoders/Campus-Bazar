@@ -1,0 +1,1194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frequently Asked Questions - Your Store</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6e00ff;
+            --primary-light: #9d4dff;
+            --secondary: #00f0ff;
+            --dark: #0a0a1a;
+            --darker: #050510;
+            --light: #f0f5ff;
+            --gray: #a0a8c0;
+            --success: #00ffaa;
+            --warning: #ffaa00;
+            --error: #ff4444;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(110, 0, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(0, 240, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(157, 77, 255, 0.08) 0%, transparent 50%),
+                linear-gradient(135deg, var(--darker) 0%, #0d0d2a 50%, var(--darker) 100%);
+            color: var(--light);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(45deg, transparent 40%, rgba(110, 0, 255, 0.03) 50%, transparent 60%),
+                linear-gradient(-45deg, transparent 40%, rgba(0, 240, 255, 0.03) 50%, transparent 60%);
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 20px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(110, 0, 255, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            z-index: -1;
+            animation: glow 4s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow {
+            0% { transform: translate(-50%, -50%) scale(1); opacity: 0.4; }
+            100% { transform: translate(-50%, -50%) scale(1.3); opacity: 0.7; }
+        }
+        
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 4rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 50%, #ff6b9d 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+            animation: titleFloat 5s ease-in-out infinite;
+        }
+        
+        @keyframes titleFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--gray);
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            line-height: 1.6;
+        }
+        
+        /* Search Bar */
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            position: relative;
+        }
+        
+        .search-box {
+            width: 100%;
+            padding: 16px 60px 16px 20px;
+            background: rgba(10, 10, 26, 0.9);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(110, 0, 255, 0.3);
+            border-radius: 50px;
+            font-size: 1.1rem;
+            color: var(--light);
+            font-family: 'Montserrat', sans-serif;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        .search-box:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 
+                0 0 0 4px rgba(110, 0, 255, 0.1),
+                0 8px 30px rgba(110, 0, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .search-icon {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary-light);
+            font-size: 1.2rem;
+            pointer-events: none;
+        }
+        
+        /* Category Navigation */
+        .category-nav {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 4rem;
+        }
+        
+        .category-btn {
+            padding: 12px 24px;
+            background: rgba(10, 10, 26, 0.8);
+            border: 2px solid rgba(110, 0, 255, 0.3);
+            border-radius: 50px;
+            color: var(--gray);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(10px);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .category-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(110, 0, 255, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+        
+        .category-btn:hover,
+        .category-btn.active {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            border-color: var(--secondary);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(110, 0, 255, 0.4);
+        }
+        
+        .category-btn:hover::before,
+        .category-btn.active::before {
+            left: 100%;
+        }
+        
+        /* FAQ Categories */
+        .faq-category {
+            margin-bottom: 4rem;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.6s ease forwards;
+        }
+        
+        .faq-category:nth-child(odd) {
+            animation-delay: 0.1s;
+        }
+        
+        .faq-category:nth-child(even) {
+            animation-delay: 0.2s;
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .category-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 2rem;
+            font-family: 'Orbitron', sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .category-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            color: white;
+            box-shadow: 0 8px 20px rgba(110, 0, 255, 0.3);
+        }
+        
+        /* FAQ Items */
+        .faq-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+        
+        .faq-item {
+            background: rgba(10, 10, 26, 0.9);
+            backdrop-filter: blur(20px);
+            border-radius: 16px;
+            border: 1px solid rgba(110, 0, 255, 0.2);
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .faq-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(110, 0, 255, 0.2);
+            border-color: var(--primary-light);
+        }
+        
+        .faq-question {
+            padding: 2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--light);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .faq-question::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(110, 0, 255, 0.05), transparent);
+            transition: left 0.8s ease;
+        }
+        
+        .faq-question:hover::before {
+            left: 100%;
+        }
+        
+        .faq-question:hover {
+            color: var(--secondary);
+        }
+        
+        .question-text {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .question-icon {
+            color: var(--primary-light);
+            font-size: 1.1rem;
+            min-width: 20px;
+        }
+        
+        .toggle-icon {
+            font-size: 1.2rem;
+            color: var(--primary-light);
+            transition: all 0.3s ease;
+        }
+        
+        .faq-item.active .toggle-icon {
+            transform: rotate(180deg);
+            color: var(--secondary);
+        }
+        
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(5, 5, 16, 0.5);
+        }
+        
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+        }
+        
+        .answer-content {
+            padding: 2rem;
+            color: var(--gray);
+            line-height: 1.7;
+            font-size: 1rem;
+            border-top: 1px solid rgba(110, 0, 255, 0.1);
+        }
+        
+        .answer-content ul {
+            margin: 1rem 0;
+            padding-left: 2rem;
+        }
+        
+        .answer-content li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .answer-content a {
+            color: var(--primary-light);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .answer-content a:hover {
+            color: var(--secondary);
+        }
+        
+        /* Still Have Questions Section */
+        .help-section {
+            background: rgba(10, 10, 26, 0.9);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 3rem;
+            border: 1px solid rgba(110, 0, 255, 0.3);
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.4),
+                0 0 0 1px rgba(110, 0, 255, 0.1),
+                inset 0 0 32px rgba(110, 0, 255, 0.05);
+            text-align: center;
+            margin-top: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .help-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.02), transparent);
+            transition: left 0.8s ease;
+        }
+        
+        .help-section:hover::before {
+            left: 100%;
+        }
+        
+        .help-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 1rem;
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .help-text {
+            color: var(--gray);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+        
+        .help-buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+        
+        .help-btn {
+            padding: 16px 32px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 8px 25px rgba(110, 0, 255, 0.3);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+        
+        .help-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(110, 0, 255, 0.5);
+            background: linear-gradient(135deg, var(--primary-light), var(--secondary));
+        }
+        
+        .help-btn.secondary {
+            background: transparent;
+            border: 2px solid var(--secondary);
+            color: var(--secondary);
+        }
+        
+        .help-btn.secondary:hover {
+            background: var(--secondary);
+            color: var(--dark);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem 15px;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .category-nav {
+                justify-content: flex-start;
+                overflow-x: auto;
+                padding-bottom: 1rem;
+            }
+            
+            .category-btn {
+                white-space: nowrap;
+            }
+            
+            .faq-question {
+                padding: 1.5rem;
+                font-size: 1.1rem;
+            }
+            
+            .answer-content {
+                padding: 1.5rem;
+            }
+            
+            .help-section {
+                padding: 2rem;
+            }
+            
+            .help-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .help-btn {
+                width: 100%;
+                justify-content: center;
+                max-width: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>FAQ</h1>
+            <p class="subtitle">
+                Find answers to the most frequently asked questions about our products, services, 
+                shipping, returns, and more. Can't find what you're looking for? We're here to help!
+            </p>
+            
+            <!-- Search Bar -->
+            <div class="search-container">
+                <input type="text" class="search-box" placeholder="Search for answers..." id="searchBox">
+                <i class="fas fa-search search-icon"></i>
+            </div>
+        </div>
+        
+        <!-- Category Navigation -->
+        <div class="category-nav">
+            <a href="#all" class="category-btn active" data-category="all">All Questions</a>
+            <a href="#orders" class="category-btn" data-category="orders">Orders & Payment</a>
+            <a href="#shipping" class="category-btn" data-category="shipping">Shipping & Delivery</a>
+            <a href="#returns" class="category-btn" data-category="returns">Returns & Refunds</a>
+            <a href="#account" class="category-btn" data-category="account">Account & Privacy</a>
+            <a href="#products" class="category-btn" data-category="products">Products & Quality</a>
+            <a href="#technical" class="category-btn" data-category="technical">Technical Support</a>
+        </div>
+        
+        <!-- FAQ Categories -->
+        <div id="faq-container">
+            <!-- Orders & Payment -->
+            <div class="faq-category" data-category="orders">
+                <h2 class="category-title">
+                    <div class="category-icon"><i class="fas fa-shopping-cart"></i></div>
+                    Orders & Payment
+                </h2>
+                <div class="faq-grid">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <div class="question-text">
+                                <i class="fas fa-credit-card question-icon"></i>
+                                What payment methods do you accept?
+                            </div>
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="answer-content">
+                                We accept multiple payment methods for your convenience:
+                                <ul>
+                                    <li><strong>Credit/Debit Cards:</strong> Visa, MasterCard, American Express, RuPay</li>
+                                    <li><strong>Digital Wallets:</strong> Paytm, PhonePe, Google Pay, Amazon Pay</li>
+                                    <li><strong>UPI:</strong> All UPI-enabled apps</li>
+                                    <li><strong>Net Banking:</strong> All major banks supported</li>
+                                    <li><strong>Cash on Delivery (COD):</strong> Available for orders under ₹50,000</li>
+                                    <li><strong>EMI Options:</strong> 3, 6, 9, 12 months EMI available</li>
+                                </ul>
+                                All payments are processed through secure, encrypted channels to ensure your financial information remains safe.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <div class="question-text">
+                                <i class="fas fa-edit question-icon"></i>
+                                Can I modify or cancel my order after placing it?
+                            </div>
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="answer-content">
+                                <strong>Order Modification:</strong> You can modify your order (change address, add/remove items) within 30 minutes of placing it by contacting our customer support.
+                                <br><br>
+                                <strong>Order Cancellation:</strong>
+                                <ul>
+                                    <li>Orders can be cancelled free of charge before they are shipped</li>
+                                    <li>Once shipped, orders cannot be cancelled but can be returned</li>
+                                    <li>COD orders can be refused at the time of delivery</li>
+                                    <li>Refunds for prepaid orders are processed within 3-5 business days</li>
+                                </ul>
+                                To modify or cancel, visit "My Orders" in your account or call our customer support at +91 123 456 7890.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <div class="question-text">
+                                <i class="fas fa-receipt question-icon"></i>
+                                How do I get an invoice for my order?
+                            </div>
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="answer-content">
+                                Invoices are automatically generated for all orders:
+                                <ul>
+                                    <li><strong>Email Invoice:</strong> Sent to your registered email within 24 hours</li>
+                                    <li><strong>Digital Invoice:</strong> Available in "My Orders" section for download</li>
+                                    <li><strong>Physical Invoice:</strong> Included with your shipped order</li>
+                                    <li><strong>GST Invoice:</strong> Available for all orders above ₹500</li>
+                                </ul>
+                                For business purchases, you can add your GSTIN details during checkout for proper tax invoicing.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Shipping & Delivery -->
+            <div class="faq-category" data-category="shipping">
+                <h2 class="category-title">
+                    <div class="category-icon"><i class="fas fa-shipping-fast"></i></div>
+                    Shipping & Delivery
+                </h2>
+                <div class="faq-grid">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <div class="question-text">
+                                <i class="fas fa-truck question-icon"></i>
+                                What are your shipping options and delivery times?
+                            </div>
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="answer-content">
+                                We offer multiple shipping options to meet your needs:
+                                <ul>
+                                    <li><strong>Standard Delivery (Free):</strong> 4-7 business days (Free on orders ₹999+)</li>
+                                    <li><strong>Express Delivery:</strong> 2-3 business days (₹99)</li>
+                                    <li><strong>Priority Express:</strong> Next business day (₹199)</li>
+                                    <li><strong>Same-Day Delivery:</strong> Available in Delhi NCR, Mumbai, Bangalore (₹299)</li>
+                                    <li><strong>Scheduled Delivery:</strong> Choose your preferred date and time slot</li>
+                                </ul>
+                                Delivery times may vary during peak seasons and for remote locations. You'll receive tracking information once your order ships.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <div class="question-text">
+                                <i class="fas fa-map-marker-alt question-icon"></i>
+                                Do you deliver to my location?
+                            </div>
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="answer-content">
+                                We deliver across India to most PIN codes:
+                                <ul>
+                                    <li><strong>Metro Cities:</strong> Same-day and next-day delivery available</li>
+                                    <li><strong>Tier 2 Cities:</strong> 2-4 business days delivery</li>
+                                    <li><strong>Tier 3 Cities & Towns:</strong> 4-7 business days delivery</li>
+                                    <li><strong>Remote Areas:</strong> 7-14 business days (additional charges may apply)</li>
+                                </ul>
+                                Enter your PIN code on the product page to check delivery availability and estimated delivery time. Some products may have location restrictions due to shipping regulations.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <div class="question-text">
+                                <i class="fas fa-search question-icon"></i>
+                                How can I track my order?
+                            </div>
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="answer-content">
+                                Tracking your order is easy with multiple options:
+                                <ul>
+                                    <li><strong>SMS Tracking:</strong> Automatic updates sent to your mobile</li>
+                                    <li><strong>Email Updates:</strong> Detailed tracking info sent to your email</li>
+                                    <li><strong>My Orders:</strong> Real-time tracking in your account dashboard</li>
+                                    <li><strong>WhatsApp:</strong> Get updates on WhatsApp by messaging us</li>
+                                    <li><strong>Tracking Number:</strong> Use the tracking ID on courier website</li>
+                                </ul>
+                                You'll receive your tracking number within 24 hours of order confirmation. Track your package every step of the way from warehouse to your doorstep.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Returns & Refunds -->
+            <div class="faq-category" data-category="returns">
+                <h2 class="category-title">
+                    <div class="category-icon"><i class="fas fa-undo-alt"></i></div>
+                    Returns & Refunds
+                </h2>
+                <div class="faq-grid">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <div class="question-text">
+                                <i class="fas fa-calendar-alt question-icon"></i>
+                                What is your return policy?
+                            </div>
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="answer-content">
+                                Our hassle-free return policy ensures customer satisfaction:
+                                <ul>
+                                    <li><strong>Return Window:</strong> 30 days from delivery date</li>
+                                    <li><strong>Condition:</strong> Items must be unused, with original tags and packaging</li>
+                                    <li><strong>Free Returns:</strong> No questions asked for defective or wrong items</li>
+                                    <li><strong>Easy Process:</strong> Initiate returns through your account or customer support</li>
+                                    <li><strong>Quick Pickup:</strong> We'll schedule a pickup from your address</li>
+                                </ul>
+                                <strong>Non-returnable items:</strong> Personal care products, intimate wear, customized items, and perishable goods cannot be returned for hygiene reasons.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <div class="question-text">
+                                <i class="fas fa-money-bill-wave question-icon"></i>
+                                How long does it take to process refunds?
+                            </div>
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="answer-content">
+                                Refund processing times depend on your payment method:
+                                <ul>
+                                    <li><strong>Digital Wallets:</strong> Instant to 24 hours</li>
+                                    <li><strong>UPI/Net Banking:</strong> 1-3 business days</li>
+                                    <li><strong>Credit Cards:</strong> 5-7 business days</li>
+                                    <li><strong>Debit Cards:</strong> 7-10 business days</li>
+                                    <li><strong>COD Returns:</strong> Bank transfer within 7-10 business days</li>
+                                </ul>
+                                You'll receive email confirmation once your refund is processed. Refunds are issued to the original payment method used for the purchase.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <div class="question-text">
+                                <i class="fas fa-exchange-alt question-icon"></i>
+                                Can I exchange an item instead of returning it?
+                            </div>
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="answer-content">
+                                Yes! We offer convenient exchange options:
+                                <ul>
+                                    <li><strong>Size Exchange:</strong> Free size exchanges within 15 days</li>
+                                    <li><strong>Color Exchange:</strong> Exchange for different color (subject to availability)</li>
+                                    <li><strong>Product Exchange:</strong> Exchange for similar priced items</li>
+                                    <li><strong>Instant Exchange:</strong> Same-day exchange in metro cities</li>
+                                    <li><strong>Price Difference:</strong> Pay extra or get refund for price difference</li>
+                                </ul>
+                                Exchange process is faster than return+repurchase. We'll arrange pickup of the old item and delivery of the new item simultaneously when possible.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Account & Privacy -->
+            <div class="faq-category" data-category="account">
+                <h2 class="category-title">
+                    <div class="category-icon"><i class="fas fa-user-shield"></i></div>
+                    Account & Privacy
+                </h2>
+                <div class="faq-grid">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <div class="question-text">
+                                <i class="fas fa-user-plus question-icon"></i>
+                                How do I create an account?
+                            </div>
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="answer-content">
+                                Creating an account is quick and easy:
+                                <ul>
+                                    <li><strong>Sign Up:</strong> Click "Sign Up" and enter your email/mobile number</li>
+                                    <li><strong>Verification:</strong> Verify via OTP sent to your email/phone</li>
+                                    <li><strong>Profile Setup:</strong> Add your name, address, and preferences</li>
+                                    <li><strong>Social Login:</strong> Quick signup with Google, Facebook, or Apple ID</li>
+                                    <li><strong>Guest Checkout:</strong> Shop without account, convert later</li>
+                                </ul>
+                                <strong>Benefits of having an account:</strong> Order tracking, wishlist, exclusive offers, faster checkout, and personalized recommendations.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <div class="question-text">
+                                <i class="fas fa-shield-alt question-icon"></i>
+                                How secure is my personal information?
+                            </div>
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="answer-content">
+                                We take your privacy and security seriously:
+                                <ul>
+                                    <li><strong>SSL Encryption:</strong> All data transmitted is encrypted with 256-bit SSL</li>
+                                    <li><strong>Secure Storage:</strong> Personal data stored in encrypted, secure servers</li>
+                                    <li><strong>No Data Sharing:</strong> We never sell your data to third parties</li>
+                                    <li><strong>PCI Compliance:</strong> Payment processing meets international security standards</li>
+                                    <li><strong>Regular Audits:</strong> Security audits conducted by third-party experts</li>
+                                    <li><strong>GDPR Compliant:</strong> Full compliance with data protection regulations</li>
+                                </ul>
+                                You can view, update, or delete your personal information anytime through your account settings.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <div class="question-text">
+                                <i class="fas fa-key question-icon"></i>
+                                I forgot my password. How do I reset it?
+                            </div>
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="answer-content">
+                                Resetting your password is simple:
+                                <ul>
+                                    <li><strong>Step 1:</strong> Click "Forgot Password" on the login page</li>
+                                    <li><strong>Step 2:</strong> Enter your registered email address or mobile number</li>
+                                    <li><strong>Step 3:</strong> Check your email/SMS for reset link or OTP</li>
+                                    <li><strong>Step 4:</strong> Click the link or enter OTP to create new password</li>
+                                    <li><strong>Step 5:</strong> Choose a strong password and save changes</li>
+                                </ul>
+                                <strong>Password Tips:</strong> Use at least 8 characters with a mix of letters, numbers, and symbols. Avoid using personal information or common passwords.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Products & Quality -->
+            <div class="faq-category" data-category="products">
+                <h2 class="category-title">
+                    <div class="category-icon"><i class="fas fa-box"></i></div>
+                    Products & Quality
+                </h2>
+                <div class="faq-grid">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <div class="question-text">
+                                <i class="fas fa-award question-icon"></i>
+                                How do you ensure product quality?
+                            </div>
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="answer-content">
+                                We maintain strict quality standards:
+                                <ul>
+                                    <li><strong>Vendor Verification:</strong> All sellers go through rigorous verification</li>
+                                    <li><strong>Quality Checks:</strong> Random quality inspections at warehouses</li>
+                                    <li><strong>Customer Reviews:</strong> Real customer feedback helps maintain standards</li>
+                                    <li><strong>Return Policy:</strong> Easy returns for defective or unsatisfactory products</li>
+                                    <li><strong>Brand Partnerships:</strong> Direct partnerships with authorized brands</li>
+                                    <li><strong>Authenticity Guarantee:</strong> 100% genuine products or money back</li>
+                                </ul>
+                                If you receive a defective or fake product, we'll provide immediate replacement or full refund with no questions asked.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <div class="question-text">
+                                <i class="fas fa-info-circle question-icon"></i>
+                                How accurate are the product descriptions and images?
+                            </div>
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="answer-content">
+                                We strive for maximum accuracy in product representation:
+                                <ul>
+                                    <li><strong>Multiple Images:</strong> Products shown from different angles</li>
+                                    <li><strong>Detailed Specs:</strong> Comprehensive specifications and dimensions</li>
+                                    <li><strong>Size Guides:</strong> Detailed sizing charts for apparel and footwear</li>
+                                    <li><strong>Color Accuracy:</strong> Professional photography for true colors</li>
+                                    <li><strong>Customer Photos:</strong> Real customer photos in reviews</li>
+                                    <li><strong>Video Demos:</strong> Video reviews for complex products</li>
+                                </ul>
+                                <strong>Note:</strong> Colors may vary slightly due to screen settings. If the received product doesn't match description, you can return it hassle-free.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <div class="question-text">
+                                <i class="fas fa-star question-icon"></i>
+                                How do product reviews and ratings work?
+                            </div>
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="answer-content">
+                                Our review system ensures authenticity and helpfulness:
+                                <ul>
+                                    <li><strong>Verified Purchases:</strong> Only customers who bought the product can review</li>
+                                    <li><strong>No Fake Reviews:</strong> AI and human moderation to prevent fake reviews</li>
+                                    <li><strong>Detailed Ratings:</strong> Rate different aspects like quality, value, delivery</li>
+                                    <li><strong>Photo Reviews:</strong> Add photos to help other customers</li>
+                                    <li><strong>Helpful Votes:</strong> Community votes on most helpful reviews</li>
+                                    <li><strong>Review Rewards:</strong> Earn points for writing detailed reviews</li>
+                                </ul>
+                                Reviews are published within 24 hours after moderation. You can edit your review within 30 days of posting.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Technical Support -->
+            <div class="faq-category" data-category="technical">
+                <h2 class="category-title">
+                    <div class="category-icon"><i class="fas fa-tools"></i></div>
+                    Technical Support
+                </h2>
+                <div class="faq-grid">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <div class="question-text">
+                                <i class="fas fa-mobile-alt question-icon"></i>
+                                Is there a mobile app available?
+                            </div>
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="answer-content">
+                                Yes! Our mobile app offers enhanced shopping experience:
+                                <ul>
+                                    <li><strong>Download:</strong> Available on Play Store and App Store</li>
+                                    <li><strong>Features:</strong> All website features plus app-exclusive deals</li>
+                                    <li><strong>Push Notifications:</strong> Order updates, deals, and restock alerts</li>
+                                    <li><strong>Offline Browsing:</strong> Browse previously viewed products offline</li>
+                                    <li><strong>Quick Checkout:</strong> Faster checkout with saved preferences</li>
+                                    <li><strong>AR Features:</strong> Try before you buy with augmented reality</li>
+                                    <li><strong>Voice Search:</strong> Find products using voice commands</li>
+                                </ul>
+                                <strong>App Benefits:</strong> Exclusive app-only deals, early access to sales, and loyalty points for app purchases.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <div class="question-text">
+                                <i class="fas fa-exclamation-triangle question-icon"></i>
+                                I'm having trouble with the website. What should I do?
+                            </div>
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="answer-content">
+                                If you're experiencing technical issues, try these steps:
+                                <ul>
+                                    <li><strong>Clear Cache:</strong> Clear browser cache and cookies</li>
+                                    <li><strong>Update Browser:</strong> Use the latest version of your browser</li>
+                                    <li><strong>Disable Extensions:</strong> Turn off ad blockers and extensions</li>
+                                    <li><strong>Check Internet:</strong> Ensure stable internet connection</li>
+                                    <li><strong>Try Different Browser:</strong> Test with Chrome, Firefox, or Safari</li>
+                                    <li><strong>Mobile App:</strong> Try using our mobile app instead</li>
+                                </ul>
+                                <strong>Still having issues?</strong> Contact our technical support team with details about your device, browser, and the specific problem you're facing.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <div class="question-text">
+                                <i class="fas fa-globe question-icon"></i>
+                                Which browsers and devices are supported?
+                            </div>
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="answer-content">
+                                Our website works best with modern browsers and devices:
+                                <ul>
+                                    <li><strong>Desktop Browsers:</strong> Chrome 90+, Firefox 88+, Safari 14+, Edge 90+</li>
+                                    <li><strong>Mobile Browsers:</strong> Chrome Mobile, Safari Mobile, Samsung Internet</li>
+                                    <li><strong>Operating Systems:</strong> Windows 10+, macOS 10.15+, Android 8+, iOS 13+</li>
+                                    <li><strong>Screen Resolution:</strong> Optimized for all screen sizes (320px to 4K)</li>
+                                    <li><strong>JavaScript:</strong> Required for full functionality</li>
+                                    <li><strong>Cookies:</strong> Must be enabled for login and cart features</li>
+                                </ul>
+                                For the best experience, we recommend keeping your browser updated and enabling JavaScript and cookies.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Still Have Questions Section -->
+        <div class="help-section">
+            <h2 class="help-title">STILL HAVE QUESTIONS?</h2>
+            <p class="help-text">
+                Can't find the answer you're looking for? Our friendly customer support team is here to help! 
+                Reach out to us through any of these channels and we'll get back to you quickly.
+            </p>
+            <div class="help-buttons">
+                <a href="/contact" class="help-btn">
+                    <i class="fas fa-comments"></i>
+                    Live Chat
+                </a>
+                <a href="tel:+911234567890" class="help-btn secondary">
+                    <i class="fas fa-phone"></i>
+                    Call Us
+                </a>
+                <a href="mailto:support@yourstore.com" class="help-btn">
+                    <i class="fas fa-envelope"></i>
+                    Email Support
+                </a>
+                <a href="https://wa.me/911234567890" class="help-btn secondary">
+                    <i class="fab fa-whatsapp"></i>
+                    WhatsApp
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Search functionality
+        const searchBox = document.getElementById('searchBox');
+        const faqItems = document.querySelectorAll('.faq-item');
+        const categories = document.querySelectorAll('.faq-category');
+        
+        searchBox.addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            
+            if (searchTerm === '') {
+                // Show all items when search is empty
+                faqItems.forEach(item => {
+                    item.style.display = 'block';
+                });
+                categories.forEach(category => {
+                    category.style.display = 'block';
+                });
+                return;
+            }
+            
+            categories.forEach(category => {
+                let hasVisibleItems = false;
+                const categoryItems = category.querySelectorAll('.faq-item');
+                
+                categoryItems.forEach(item => {
+                    const question = item.querySelector('.question-text').textContent.toLowerCase();
+                    const answer = item.querySelector('.answer-content').textContent.toLowerCase();
+                    
+                    if (question.includes(searchTerm) || answer.includes(searchTerm)) {
+                        item.style.display = 'block';
+                        hasVisibleItems = true;
+                        
+                        // Highlight search term
+                        highlightSearchTerm(item, searchTerm);
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+                
+                category.style.display = hasVisibleItems ? 'block' : 'none';
+            });
+        });
+        
+        // Highlight search terms
+        function highlightSearchTerm(item, term) {
+            // This is a simple implementation - in production you'd want more sophisticated highlighting
+            const questionText = item.querySelector('.question-text');
+            let text = questionText.textContent;
+            const regex = new RegExp(`(${term})`, 'gi');
+            
+            // Remove previous highlights
+            text = text.replace(/<mark>/g, '').replace(/<\/mark>/g, '');
+            
+            // Add new highlights
+            text = text.replace(regex, '<mark style="background: var(--secondary); color: var(--dark); padding: 2px 4px; border-radius: 4px;">$1</mark>');
+            
+            // Update the text (be careful with innerHTML in production)
+            const icon = questionText.querySelector('.question-icon').outerHTML;
+            questionText.innerHTML = icon + text.replace(questionText.querySelector('.question-icon').outerHTML, '');
+        }
+        
+        // Category filtering
+        const categoryBtns = document.querySelectorAll('.category-btn');
+        
+        categoryBtns.forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Update active button
+                categoryBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                const category = this.dataset.category;
+                
+                // Show/hide categories
+                categories.forEach(cat => {
+                    if (category === 'all' || cat.dataset.category === category) {
+                        cat.style.display = 'block';
+                    } else {
+                        cat.style.display = 'none';
+                    }
+                });
+                
+                // Clear search when switching categories
+                searchBox.value = '';
+                faqItems.forEach(item => {
+                    item.style.display = 'block';
+                });
+            });
+        });
+        
+        // FAQ accordion functionality
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            
+            question.addEventListener('click', function() {
+                const isActive = item.classList.contains('active');
+                
+                // Close all other items (optional - remove if you want multiple items open)
+                faqItems.forEach(otherItem => {
+                    if (otherItem !== item) {
+                        otherItem.classList.remove('active');
+                    }
+                });
+                
+                // Toggle current item
+                item.classList.toggle('active');
+                
+                // Smooth scroll to item if opening
+                if (!isActive) {
+                    setTimeout(() => {
+                        item.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'nearest'
+                        });
+                    }, 200);
+                }
+            });
+        });
+        
+        // Smooth scrolling for category navigation
+        categoryBtns.forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                const targetCategory = this.getAttribute('href');
+                if (targetCategory && targetCategory.startsWith('#')) {
+                    const target = document.querySelector(`[data-category="${targetCategory.slice(1)}"]`);
+                    if (target && targetCategory !== '#all') {
+                        setTimeout(() => {
+                            target.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start'
+                            });
+                        }, 100);
+                    }
+                }
+            });
+        });
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Show all categories by default
+            categories.forEach(category => {
+                category.style.display = 'block';
+            });
+        });
+    </script>
+</body>
+</html>
