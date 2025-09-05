@@ -1,0 +1,1544 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #f8fafc;
+            color: #1e293b;
+        }
+
+        .admin-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: 260px;
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            color: white;
+            padding: 2rem 0;
+            box-shadow: 4px 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar-header {
+            padding: 0 2rem 2rem 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            /* display: flex; */
+            /* justify-content: space-between; */
+        }
+
+        .sidebar-header h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #f1f5f9;
+        }
+
+        .sidebar-header p {
+            color: #94a3b8;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+
+        .sidebar-nav {
+            padding: 2rem 0;
+        }
+
+        .nav-item {
+            display: block;
+            padding: 0.75rem 2rem;
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .nav-item:hover,
+        .nav-item.active {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border-left-color: #3b82f6;
+        }
+
+        .nav-item i {
+            margin-right: 0.75rem;
+            width: 20px;
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            flex: 1;
+            padding: 2rem;
+            background: #f8fafc;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: flex-start;
+            /* keep title on left */
+            align-items: center;
+            background: white;
+            padding: 1.5rem 2rem;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .top-bar-user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-left: auto;
+            /* pushes it to right */
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-left: auto;
+            /* pushes it to right side */
+        }
+
+
+
+        .top-bar h2 {
+            margin: 0;
+        }
+
+
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+
+        .logout-btn {
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.875rem;
+            transition: background 0.3s;
+        }
+
+        .logout-btn:hover {
+            background: #dc2626;
+        }
+
+        /* Dashboard Stats */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid #3b82f6;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:nth-child(2) {
+            border-left-color: #10b981;
+        }
+
+        .stat-card:nth-child(3) {
+            border-left-color: #f59e0b;
+        }
+
+        .stat-card:nth-child(4) {
+            border-left-color: #ef4444;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .stat-card:nth-child(1) .stat-icon {
+            background: #dbeafe;
+            color: #3b82f6;
+        }
+
+        .stat-card:nth-child(2) .stat-icon {
+            background: #d1fae5;
+            color: #10b981;
+        }
+
+        .stat-card:nth-child(3) .stat-icon {
+            background: #fef3c7;
+            color: #f59e0b;
+        }
+
+        .stat-card:nth-child(4) .stat-icon {
+            background: #fee2e2;
+            color: #ef4444;
+        }
+
+        .stat-number {
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: #1e293b;
+        }
+
+        .stat-label {
+            color: #64748b;
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-change {
+            font-size: 0.75rem;
+            color: #10b981;
+        }
+
+        /* Content Sections */
+        .content-section {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+
+        .section-header {
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .section-content {
+            padding: 2rem;
+        }
+
+        /* Table Styles */
+        .table-container {
+            overflow-x: auto;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .data-table th {
+            background: #f8fafc;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            color: #475569;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .data-table td {
+            padding: 1rem;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .data-table tr:hover {
+            background: #f8fafc;
+        }
+
+        /* Action Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            text-decoration: none;
+            margin-right: 0.5rem;
+        }
+
+        .btn-primary {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #2563eb;
+        }
+
+        .btn-success {
+            background: #10b981;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #059669;
+        }
+
+        .btn-warning {
+            background: #f59e0b;
+            color: white;
+        }
+
+        .btn-warning:hover {
+            background: #d97706;
+        }
+
+        .btn-danger {
+            background: #ef4444;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #dc2626;
+        }
+
+        .btn-sm {
+            padding: 0.375rem 0.75rem;
+            font-size: 0.75rem;
+        }
+
+        /* Search and Filters */
+        .controls-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .search-input {
+            flex: 1;
+            min-width: 300px;
+            padding: 0.75rem 1rem;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 0.875rem;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        /* Status Badges */
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .status-active {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .status-inactive {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .status-pending {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+        }
+
+        .modal-content {
+            background: white;
+            margin: 3% auto;
+            padding: 2rem;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 500px;
+            animation: modalSlideIn 0.3s ease;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px) scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #64748b;
+        }
+
+        .close-btn:hover {
+            color: #1e293b;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #374151;
+        }
+
+        .form-input,
+        .form-select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            background: white;
+        }
+
+        .form-input:focus,
+        .form-select:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        /* User Cards Styles */
+        .users-card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .user-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            border: 1px solid #f1f5f9;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .user-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #3b82f6, #1d4ed8);
+        }
+
+        .user-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .user-card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .user-avatar-large {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-right: 1rem;
+            position: relative;
+        }
+
+        .user-avatar-large.admin {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+        }
+
+        .user-info {
+            flex: 1;
+        }
+
+        .user-name {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin: 0 0 0.25rem 0;
+        }
+
+        .user-email {
+            color: #64748b;
+            font-size: 0.875rem;
+            margin: 0;
+        }
+
+        .user-badges {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        .user-badge {
+            padding: 0.375rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: capitalize;
+        }
+
+        .user-badge.role-admin {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .user-badge.role-customer {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .user-badge.status-active {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .user-badge.status-inactive {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .user-card-actions {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+
+        @media (max-width: 768px) {
+            .admin-container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                position: fixed;
+                bottom: 0;
+                height: auto;
+                padding: 1rem 0;
+                z-index: 100;
+            }
+
+            .sidebar-header {
+                display: none;
+            }
+
+            .sidebar-nav {
+                padding: 0;
+                display: flex;
+                justify-content: space-around;
+            }
+
+            .nav-item {
+                padding: 0.75rem;
+                border-left: none;
+                border-top: 3px solid transparent;
+                text-align: center;
+                flex: 1;
+            }
+
+            .nav-item:hover,
+            .nav-item.active {
+                border-left: none;
+                border-top-color: #3b82f6;
+            }
+
+            .main-content {
+                padding: 1rem;
+                padding-bottom: 80px;
+            }
+
+            .top-bar {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .controls-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-input {
+                min-width: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h1>Admin Panel</h1>
+                <p>Campus Bazar</p>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active" data-section="dashboard">
+                    <i>📊</i> Dashboard
+                </a>
+                <a href="#" class="nav-item" data-section="users">
+                    <i>👥</i> Users
+                </a>
+                <a href="#" class="nav-item" data-section="products">
+                    <i>📦</i> Products
+                </a>
+                <a href="#" class="nav-item" data-section="orders">
+                    <i>🛒</i> Orders
+                </a>
+                <a href="#" class="nav-item" data-section="analytics">
+                    <i>📈</i> Analytics
+                </a>
+                <a href="#" class="nav-item" data-section="settings">
+                    <i>⚙️</i> Settings
+                </a>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="top-bar">
+                <h2 id="pageTitle">Dashboard Overview</h2>
+                <div class="top-bar-user-info">
+                    <div class="user-avatar">A</div>
+                    <span>Admin User</span>
+                    <button class="logout-btn">Logout</button>
+                </div>
+            </div>
+
+
+            <!-- Dashboard Section -->
+            <div id="dashboard-section" class="content-panel">
+                <div class="dashboard-grid">
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-label">Total Users</div>
+                                <div class="stat-number" id="totalUsers">1,247</div>
+                                <div class="stat-change">+12% from last month</div>
+                            </div>
+                            <div class="stat-icon">👥</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-label">Total Products</div>
+                                <div class="stat-number" id="totalProducts">892</div>
+                                <div class="stat-change">+8% from last month</div>
+                            </div>
+                            <div class="stat-icon">📦</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-label">Total Orders</div>
+                                <div class="stat-number" id="totalOrders">3,456</div>
+                                <div class="stat-change">+23% from last month</div>
+                            </div>
+                            <div class="stat-icon">🛒</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-label">Revenue</div>
+                                <div class="stat-number" id="totalRevenue">$87,543</div>
+                                <div class="stat-change">+15% from last month</div>
+                            </div>
+                            <div class="stat-icon">💰</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <div class="content-section">
+                    <div class="section-header">
+                        <h3 class="section-title">Recent Activities</h3>
+                    </div>
+                    <div class="section-content">
+                        <div id="recentActivities">
+                            <p>📝 New user registered: john.doe@email.com</p>
+                            <p>🛒 Order #12345 completed by Jane Smith</p>
+                            <p>📦 Product "Wireless Headphones" updated</p>
+                            <p>💰 Payment received for order #12344</p>
+                            <p>👤 User profile updated: mike.wilson@email.com</p>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+
+            <!-- Users Section -->
+            <div id="users-section" class="content-panel" style="display: none;">
+                <div class="content-section">
+                    <div class="section-header">
+                        <h3 class="section-title">User Management</h3>
+                        <button class="btn btn-primary" id="addUserBtn">Add New User</button>
+                    </div>
+                    <div class="section-content">
+                        <div class="controls-bar">
+                            <input type="text" id="userSearch" class="search-input"
+                                placeholder="Search users by name or email...">
+                            <div style="display: flex; gap: 0.5rem;">
+                                <select id="roleFilter" class="form-select" style="width: auto;">
+                                    <option value="">All Roles</option>
+                                    <option value="admin">Admin</option>
+                                    <option value="customer">Customer</option>
+                                </select>
+                                <select id="statusFilter" class="form-select" style="width: auto;">
+                                    <option value="">All Status</option>
+                                    <option value="active">Active</option>
+                                    <option value="inactive">Inactive</option>
+                                </select>
+                                <button class="btn btn-sm" id="viewToggle" style="background: #6366f1; color: white;">
+                                    <span id="viewToggleText">📋 Table View</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Card View -->
+                        <div id="usersCardContainer" class="users-card-container">
+                            <!-- User cards will be populated by JavaScript -->
+                        </div>
+
+                        <!-- Table View -->
+                        <div id="usersTableContainer" class="table-container" style="display: none;">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Role</th>
+                                        <th>Status</th>
+                                        <th>Joined Date</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="usersTableBody">
+                                    <!-- Users will be populated by JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Products Section -->
+            <div id="products-section" class="content-panel" style="display: none;">
+                <div class="content-section">
+                    <div class="section-header">
+                        <h3 class="section-title">Product Management</h3>
+                        <button class="btn btn-primary" id="addProductBtn">Add New Product</button>
+                    </div>
+                    <div class="section-content">
+                        <div class="controls-bar">
+                            <input type="text" id="productSearch" class="search-input" placeholder="Search products...">
+                            <select id="categoryFilter" class="form-select" style="width: auto;">
+                                <option value="">All Categories</option>
+                                <option value="electronics">Electronics</option>
+                                <option value="clothing">Clothing</option>
+                                <option value="home">Home & Garden</option>
+                            </select>
+                        </div>
+                        <div class="table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Product Name</th>
+                                        <th>Category</th>
+                                        <th>Price</th>
+                                        <th>Stock</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="productsTableBody">
+                                    <!-- Products will be populated by JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Orders Section -->
+            <div id="orders-section" class="content-panel" style="display: none;">
+                <div class="content-section">
+                    <div class="section-header">
+                        <h3 class="section-title">Order Management</h3>
+                    </div>
+                    <div class="section-content">
+                        <div class="controls-bar">
+                            <input type="text" id="orderSearch" class="search-input" placeholder="Search orders...">
+                            <select id="orderStatusFilter" class="form-select" style="width: auto;">
+                                <option value="">All Orders</option>
+                                <option value="pending">Pending</option>
+                                <option value="processing">Processing</option>
+                                <option value="completed">Completed</option>
+                                <option value="cancelled">Cancelled</option>
+                            </select>
+                        </div>
+                        <div class="table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Order ID</th>
+                                        <th>Customer</th>
+                                        <th>Date</th>
+                                        <th>Total</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="ordersTableBody">
+                                    <!-- Orders will be populated by JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Analytics Section -->
+            <div id="analytics-section" class="content-panel" style="display: none;">
+                <div class="content-section">
+                    <div class="section-header">
+                        <h3 class="section-title">Analytics Dashboard</h3>
+                    </div>
+                    <div class="section-content">
+                        <p>Analytics charts and reports would go here...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings Section -->
+            <div id="settings-section" class="content-panel" style="display: none;">
+                <div class="content-section">
+                    <div class="section-header">
+                        <h3 class="section-title">System Settings</h3>
+                    </div>
+                    <div class="section-content">
+                        <p>System configuration options would go here...</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- User Modal -->
+    <div id="userModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="userModalTitle">Add New User</h3>
+                <button class="close-btn" id="closeUserModal">&times;</button>
+            </div>
+            <form id="userForm">
+                <div class="form-group">
+                    <label class="form-label" for="userName">Full Name</label>
+                    <input type="text" id="userName" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="userEmail">Email Address</label>
+                    <input type="email" id="userEmail" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="userRole">Role</label>
+                    <select id="userRole" class="form-select" required>
+                        <option value="customer">Customer</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="userStatus">Status</label>
+                    <select id="userStatus" class="form-select" required>
+                        <option value="active">Active</option>
+                        <option value="inactive">Inactive</option>
+                    </select>
+                </div>
+                <div style="display: flex; gap: 1rem; justify-content: flex-end;">
+                    <button type="button" class="btn btn-sm" id="cancelUserBtn"
+                        style="background: #6b7280; color: white;">Cancel</button>
+                    <button type="submit" class="btn btn-primary btn-sm">Save User</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Sample data (in real implementation, this would come from a database)
+        let users = [
+            {
+                id: 1,
+                name: "John Doe",
+                email: "john@example.com",
+                role: "customer",
+                status: "active",
+                joinedDate: "2024-01-15",
+                lastActivity: "2024-08-20",
+                totalOrders: 12,
+                totalSpent: 1250.50
+            },
+            {
+                id: 2,
+                name: "Jane Smith",
+                email: "jane@example.com",
+                role: "admin",
+                status: "active",
+                joinedDate: "2024-02-20",
+                lastActivity: "2024-08-24",
+                totalOrders: 0,
+                totalSpent: 0
+            },
+            {
+                id: 3,
+                name: "Bob Johnson",
+                email: "bob@example.com",
+                role: "customer",
+                status: "inactive",
+                joinedDate: "2024-03-10",
+                lastActivity: "2024-07-15",
+                totalOrders: 3,
+                totalSpent: 245.75
+            },
+            {
+                id: 4,
+                name: "Alice Brown",
+                email: "alice@example.com",
+                role: "customer",
+                status: "active",
+                joinedDate: "2024-01-08",
+                lastActivity: "2024-08-23",
+                totalOrders: 8,
+                totalSpent: 890.25
+            },
+            {
+                id: 5,
+                name: "Charlie Wilson",
+                email: "charlie@example.com",
+                role: "customer",
+                status: "active",
+                joinedDate: "2024-02-14",
+                lastActivity: "2024-08-22",
+                totalOrders: 15,
+                totalSpent: 2100.00
+            },
+            {
+                id: 6,
+                name: "Diana Prince",
+                email: "diana@example.com",
+                role: "customer",
+                status: "active",
+                joinedDate: "2024-03-20",
+                lastActivity: "2024-08-21",
+                totalOrders: 6,
+                totalSpent: 567.80
+            }
+        ];
+
+        let products = [
+            { id: 1, name: "Wireless Headphones", category: "electronics", price: 99.99, stock: 45, status: "active" },
+            { id: 2, name: "Cotton T-Shirt", category: "clothing", price: 24.99, stock: 120, status: "active" },
+            { id: 3, name: "Garden Tools Set", category: "home", price: 79.99, stock: 12, status: "active" },
+            { id: 4, name: "Smartphone Case", category: "electronics", price: 19.99, stock: 200, status: "active" },
+            { id: 5, name: "Yoga Mat", category: "home", price: 34.99, stock: 67, status: "active" }
+        ];
+
+        let orders = [
+            { id: 12345, customer: "John Doe", date: "2024-08-20", total: 149.98, status: "completed" },
+            { id: 12346, customer: "Jane Smith", date: "2024-08-21", total: 89.99, status: "processing" },
+            { id: 12347, customer: "Bob Johnson", date: "2024-08-22", total: 234.50, status: "pending" },
+            { id: 12348, customer: "Alice Brown", date: "2024-08-23", total: 67.99, status: "completed" },
+            { id: 12349, customer: "Charlie Wilson", date: "2024-08-24", total: 125.00, status: "processing" }
+        ];
+
+        let currentEditingUserId = null;
+        let currentView = 'card'; // 'card' or 'table'
+
+        // Navigation functionality
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const section = this.getAttribute('data-section');
+                    showSection(section);
+
+                    // Update active nav item
+                    document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+
+            // Initialize the admin panel
+            updateStats();
+            loadUsers();
+        });
+
+        function showSection(sectionName) {
+            // Hide all content panels
+            document.querySelectorAll('.content-panel').forEach(panel => {
+                panel.style.display = 'none';
+            });
+
+            // Show selected section
+            const section = document.getElementById(sectionName + '-section');
+            if (section) {
+                section.style.display = 'block';
+            }
+
+            // Update page title
+            const titles = {
+                'dashboard': 'Dashboard Overview',
+                'users': 'User Management',
+                'products': 'Product Management',
+                'orders': 'Order Management',
+                'analytics': 'Analytics',
+                'settings': 'Settings'
+            };
+            document.getElementById('pageTitle').textContent = titles[sectionName] || 'Admin Panel';
+
+            // Load section data
+            if (sectionName === 'users') {
+                loadUsers();
+            } else if (sectionName === 'products') {
+                loadProducts();
+            } else if (sectionName === 'orders') {
+                loadOrders();
+            }
+        }
+
+        // User management functions
+        function loadUsers() {
+            if (currentView === 'card') {
+                renderUserCards(users);
+            } else {
+                renderUsersTable(users);
+            }
+        }
+
+        function renderUserCards(usersToRender) {
+            const container = document.getElementById('usersCardContainer');
+            if (!container) return;
+
+            container.innerHTML = '';
+
+            usersToRender.forEach(user => {
+                const userCard = document.createElement('div');
+                userCard.className = 'user-card';
+
+                const initials = user.name.split(' ').map(n => n[0]).join('').toUpperCase();
+                const avatarClass = user.role === 'admin' ? 'admin' : '';
+
+                userCard.innerHTML = `
+                    <div class="user-card-header">
+                        <div class="user-avatar-large ${avatarClass}">
+                            ${initials}
+                        </div>
+                        <div class="user-info">
+                            <h3 class="user-name">${user.name}</h3>
+                            <p class="user-email">${user.email}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="user-card-body">
+                        <div class="user-badges">
+                            <span class="user-badge role-${user.role}">${user.role}</span>
+                            <span class="user-badge status-${user.status}">${user.status}</span>
+                        </div>
+                        
+                        ${user.role === 'customer' ? `
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; margin: 1rem 0; text-align: center;">
+                            <div>
+                                <div style="font-size: 1.25rem; font-weight: 700; color: #3b82f6;">${user.totalOrders}</div>
+                                <div style="font-size: 0.75rem; color: #64748b;">Orders</div>
+                            </div>
+                            <div>
+                                <div style="font-size: 1.25rem; font-weight: 700; color: #3b82f6;">${user.totalSpent.toFixed(0)}</div>
+                                <div style="font-size: 0.75rem; color: #64748b;">Spent</div>
+                            </div>
+                            <div>
+                                <div style="font-size: 1.25rem; font-weight: 700; color: #3b82f6;">${user.totalOrders > 0 ? (user.totalSpent / user.totalOrders).toFixed(0) : '0'}</div>
+                                <div style="font-size: 0.75rem; color: #64748b;">Avg Order</div>
+                            </div>
+                        </div>
+                        ` : ''}
+                    </div>
+                    
+                    <div class="user-card-actions">
+                        <button class="btn btn-primary btn-sm" onclick="viewUserDetails(${user.id})">View</button>
+                        <button class="btn btn-warning btn-sm" onclick="editUser(${user.id})">Edit</button>
+                        <button class="btn btn-danger btn-sm" onclick="deleteUser(${user.id})">Delete</button>
+                    </div>
+                `;
+
+                container.appendChild(userCard);
+            });
+        }
+
+        function renderUsersTable(usersToRender) {
+            const tbody = document.getElementById('usersTableBody');
+            if (!tbody) return;
+
+            tbody.innerHTML = '';
+
+            usersToRender.forEach(user => {
+                const row = document.createElement('tr');
+                row.innerHTML =
+                    '<td>#' + user.id + '</td>' +
+                    '<td>' + user.name + '</td>' +
+                    '<td>' + user.email + '</td>' +
+                    '<td><span class="status-badge ' + (user.role === 'admin' ? 'status-pending' : 'status-active') + '">' + user.role + '</span></td>' +
+                    '<td><span class="status-badge ' + (user.status === 'active' ? 'status-active' : 'status-inactive') + '">' + user.status + '</span></td>' +
+                    '<td>' + user.joinedDate + '</td>' +
+                    '<td>' +
+                    '<button class="btn btn-warning btn-sm" onclick="editUser(' + user.id + ')">Edit</button>' +
+                    '<button class="btn btn-danger btn-sm" onclick="deleteUser(' + user.id + ')">Delete</button>' +
+                    '</td>';
+                tbody.appendChild(row);
+            });
+        }
+
+        function viewUserDetails(userId) {
+            const user = users.find(u => u.id === userId);
+            if (user) {
+                const details = `Email: ${user.email}\nRole: ${user.role}\nStatus: ${user.status}\nJoined: ${user.joinedDate}\nLast Activity: ${user.lastActivity}${user.role === 'customer' ? `\nTotal Orders: ${user.totalOrders}\nTotal Spent: ${user.totalSpent}` : ''}`;
+                alert(`User Details - ${user.name}\n\n${details}`);
+            }
+        }
+
+        function editUser(userId) {
+            const user = users.find(u => u.id === userId);
+            if (user) {
+                currentEditingUserId = userId;
+                document.getElementById('userModalTitle').textContent = 'Edit User';
+                document.getElementById('userName').value = user.name;
+                document.getElementById('userEmail').value = user.email;
+                document.getElementById('userRole').value = user.role;
+                document.getElementById('userStatus').value = user.status;
+                document.getElementById('userModal').style.display = 'block';
+            }
+        }
+
+        function deleteUser(userId) {
+            if (confirm('Are you sure you want to delete this user?')) {
+                users = users.filter(user => user.id !== userId);
+                loadUsers();
+                updateStats();
+            }
+        }
+
+        // Product management functions
+        function loadProducts() {
+            renderProducts(products);
+        }
+
+        function renderProducts(productsToRender) {
+            const tbody = document.getElementById('productsTableBody');
+            if (!tbody) return;
+
+            tbody.innerHTML = '';
+
+            productsToRender.forEach(product => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>#${product.id}</td>
+                    <td>${product.name}</td>
+                    <td><span class="status-badge status-active">${product.category}</span></td>
+                    <td>${product.price}</td>
+                    <td>${product.stock}</td>
+                    <td><span class="status-badge ${product.status === 'active' ? 'status-active' : 'status-inactive'}">${product.status}</span></td>
+                    <td>
+                        <button class="btn btn-warning btn-sm" onclick="editProduct(${product.id})">Edit</button>
+                        <button class="btn btn-danger btn-sm" onclick="deleteProduct(${product.id})">Delete</button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function editProduct(productId) {
+            alert('Edit product functionality - would open product edit modal');
+        }
+
+        function deleteProduct(productId) {
+            if (confirm('Are you sure you want to delete this product?')) {
+                products = products.filter(product => product.id !== productId);
+                loadProducts();
+                updateStats();
+            }
+        }
+
+        // Order management functions
+        function loadOrders() {
+            renderOrders(orders);
+        }
+
+        function renderOrders(ordersToRender) {
+            const tbody = document.getElementById('ordersTableBody');
+            if (!tbody) return;
+
+            tbody.innerHTML = '';
+
+            ordersToRender.forEach(order => {
+                const row = document.createElement('tr');
+                const statusClass = order.status === 'completed' ? 'status-active' :
+                    order.status === 'pending' ? 'status-pending' : 'status-inactive';
+                row.innerHTML = `
+                    <td>#${order.id}</td>
+                    <td>${order.customer}</td>
+                    <td>${order.date}</td>
+                    <td>${order.total}</td>
+                    <td><span class="status-badge ${statusClass}">${order.status}</span></td>
+                    <td>
+                        <button class="btn btn-primary btn-sm" onclick="viewOrder(${order.id})">View</button>
+                        <button class="btn btn-warning btn-sm" onclick="editOrder(${order.id})">Edit</button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function viewOrder(orderId) {
+            alert('View order details - would open order details modal');
+        }
+
+        function editOrder(orderId) {
+            alert('Edit order functionality - would open order edit modal');
+        }
+
+        // Modal functionality
+        document.addEventListener('DOMContentLoaded', function () {
+            const addUserBtn = document.getElementById('addUserBtn');
+            const closeUserModal = document.getElementById('closeUserModal');
+            const cancelUserBtn = document.getElementById('cancelUserBtn');
+            const userForm = document.getElementById('userForm');
+            const userModal = document.getElementById('userModal');
+
+            if (addUserBtn) {
+                addUserBtn.addEventListener('click', function () {
+                    currentEditingUserId = null;
+                    document.getElementById('userModalTitle').textContent = 'Add New User';
+                    document.getElementById('userForm').reset();
+                    document.getElementById('userModal').style.display = 'block';
+                });
+            }
+
+            if (closeUserModal) {
+                closeUserModal.addEventListener('click', function () {
+                    document.getElementById('userModal').style.display = 'none';
+                });
+            }
+
+            if (cancelUserBtn) {
+                cancelUserBtn.addEventListener('click', function () {
+                    document.getElementById('userModal').style.display = 'none';
+                });
+            }
+
+            // User form submission
+            if (userForm) {
+                userForm.addEventListener('submit', function (e) {
+                    e.preventDefault();
+                    const name = document.getElementById('userName').value;
+                    const email = document.getElementById('userEmail').value;
+                    const role = document.getElementById('userRole').value;
+                    const status = document.getElementById('userStatus').value;
+
+                    if (currentEditingUserId) {
+                        // Edit existing user
+                        const userIndex = users.findIndex(user => user.id === currentEditingUserId);
+                        if (userIndex !== -1) {
+                            users[userIndex] = {
+                                ...users[userIndex],
+                                name: name,
+                                email: email,
+                                role: role,
+                                status: status
+                            };
+                        }
+                    } else {
+                        // Add new user
+                        const newUser = {
+                            id: users.length > 0 ? Math.max(...users.map(u => u.id)) + 1 : 1,
+                            name: name,
+                            email: email,
+                            role: role,
+                            status: status,
+                            joinedDate: new Date().toISOString().split('T')[0],
+                            lastActivity: new Date().toISOString().split('T')[0],
+                            totalOrders: 0,
+                            totalSpent: 0
+                        };
+                        users.push(newUser);
+                    }
+
+                    document.getElementById('userModal').style.display = 'none';
+                    loadUsers();
+                    updateStats();
+                });
+            }
+
+            // Search functionality
+            const userSearch = document.getElementById('userSearch');
+            const roleFilter = document.getElementById('roleFilter');
+            const statusFilter = document.getElementById('statusFilter');
+
+            function filterUsers() {
+                const searchTerm = userSearch.value.toLowerCase();
+                const roleFilterValue = roleFilter.value;
+                const statusFilterValue = statusFilter.value;
+
+                let filteredUsers = users.filter(user => {
+                    const matchesSearch = user.name.toLowerCase().includes(searchTerm) ||
+                        user.email.toLowerCase().includes(searchTerm);
+                    const matchesRole = !roleFilterValue || user.role === roleFilterValue;
+                    const matchesStatus = !statusFilterValue || user.status === statusFilterValue;
+
+                    return matchesSearch && matchesRole && matchesStatus;
+                });
+
+                if (currentView === 'card') {
+                    renderUserCards(filteredUsers);
+                } else {
+                    renderUsersTable(filteredUsers);
+                }
+            }
+
+            if (userSearch) {
+                userSearch.addEventListener('input', filterUsers);
+            }
+
+            if (roleFilter) {
+                roleFilter.addEventListener('change', filterUsers);
+            }
+
+            if (statusFilter) {
+                statusFilter.addEventListener('change', filterUsers);
+            }
+
+            // View toggle functionality
+            const viewToggle = document.getElementById('viewToggle');
+            if (viewToggle) {
+                viewToggle.addEventListener('click', function () {
+                    const cardContainer = document.getElementById('usersCardContainer');
+                    const tableContainer = document.getElementById('usersTableContainer');
+                    const toggleText = document.getElementById('viewToggleText');
+
+                    if (currentView === 'card') {
+                        // Switch to table view
+                        currentView = 'table';
+                        cardContainer.style.display = 'none';
+                        tableContainer.style.display = 'block';
+                        toggleText.textContent = '📋 Card View';
+                        renderUsersTable(users);
+                    } else {
+                        // Switch to card view
+                        currentView = 'card';
+                        cardContainer.style.display = 'grid';
+                        tableContainer.style.display = 'none';
+                        toggleText.textContent = '📋 Table View';
+                        renderUserCards(users);
+                    }
+                });
+            }
+
+            // Product search functionality
+            const productSearch = document.getElementById('productSearch');
+            const categoryFilter = document.getElementById('categoryFilter');
+
+            function filterProducts() {
+                const searchTerm = productSearch.value.toLowerCase();
+                const categoryFilterValue = categoryFilter.value;
+
+                let filteredProducts = products.filter(product => {
+                    const matchesSearch = product.name.toLowerCase().includes(searchTerm);
+                    const matchesCategory = !categoryFilterValue || product.category === categoryFilterValue;
+
+                    return matchesSearch && matchesCategory;
+                });
+
+                renderProducts(filteredProducts);
+            }
+
+            if (productSearch) {
+                productSearch.addEventListener('input', filterProducts);
+            }
+
+            if (categoryFilter) {
+                categoryFilter.addEventListener('change', filterProducts);
+            }
+
+            // Order search functionality
+            const orderSearch = document.getElementById('orderSearch');
+            const orderStatusFilter = document.getElementById('orderStatusFilter');
+
+            function filterOrders() {
+                const searchTerm = orderSearch.value.toLowerCase();
+                const statusFilterValue = orderStatusFilter.value;
+
+                let filteredOrders = orders.filter(order => {
+                    const matchesSearch = order.customer.toLowerCase().includes(searchTerm) ||
+                        order.id.toString().includes(searchTerm);
+                    const matchesStatus = !statusFilterValue || order.status === statusFilterValue;
+
+                    return matchesSearch && matchesStatus;
+                });
+
+                renderOrders(filteredOrders);
+            }
+
+            if (orderSearch) {
+                orderSearch.addEventListener('input', filterOrders);
+            }
+
+            if (orderStatusFilter) {
+                orderStatusFilter.addEventListener('change', filterOrders);
+            }
+
+            // Logout functionality
+            const logoutBtn = document.querySelector('.logout-btn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', function () {
+                    if (confirm('Are you sure you want to logout?')) {
+                        alert('Logout functionality - would redirect to login page');
+                    }
+                });
+            }
+
+            // Close modal when clicking outside
+            window.addEventListener('click', function (e) {
+                if (e.target === userModal) {
+                    userModal.style.display = 'none';
+                }
+            });
+        });
+
+        // Update dashboard statistics
+        function updateStats() {
+            document.getElementById('totalUsers').textContent = users.length.toLocaleString();
+            document.getElementById('totalProducts').textContent = products.length.toLocaleString();
+            document.getElementById('totalOrders').textContent = orders.length.toLocaleString();
+
+            // Calculate total revenue
+            const totalRevenue = orders.reduce((sum, order) => sum + order.total, 0);
+            document.getElementById('totalRevenue').textContent = "$" + totalRevenue.toLocaleString();
+        }
+        // Example: Fetch all users
+        fetch("/users")
+            .then(res => res.json())
+            .then(data => console.log(data.users));
+
+        // Example: Get stats
+        fetch("/stats")
+            .then(res => res.json())
+            .then(data => console.log(data.stats));
+
+        // Example: Search users
+        fetch("/search-users?q=Atharva")
+            .then(res => res.json())
+            .then(data => console.log(data.users));
+
+    </script>
+</body>
+
+</html>
